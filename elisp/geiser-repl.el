@@ -113,6 +113,22 @@ If you have a slow system, try to increase this time."
   :type 'integer
   :group 'geiser-repl)
 
+(geiser-custom--defcustom geiser-repl-inline-images t
+   "Whether to display inline images in the REPL."
+   :type 'boolean
+   :group 'geiser-repl)
+
+(geiser-custom--defcustom geiser-system-image-viewer "display"
+   "Which system image viewer program to invoke upon M-x
+`geiser-view-last-image'."
+   :type 'string
+   :group 'geiser-repl)
+
+(geiser-custom--defcustom geiser-image-cache-keep-last 10
+   "How many images to keep in geiser's image cache."
+   :type 'integer
+   :group 'geiser-repl)
+
 (geiser-custom--defface repl-input
   'comint-highlight-input geiser-repl "evaluated input highlighting")
 
@@ -266,8 +282,64 @@ module command as a string")
                                         (geiser-repl--host)
                                         (geiser-repl--port)))))
 
+(defvar geiser-image-cache-dir nil)
+;; XXX make this a parameter from Racket...
+
+(defun geiser-repl--list-image-cache ()
+  "List all the images in the image cache."
+  (and geiser-image-cache-dir
+       (file-directory-p geiser-image-cache-dir)
+       (let ((files (directory-files-and-attributes
+                     geiser-image-cache-dir t "geiser-img-[0-9]*.png")))
+         (mapcar 'car
+                 (sort files '(lambda (a b)
+                                (< (float-time (nth 6 a))
+                                   (float-time (nth 6 b)))))))))
+
+(defun geiser-repl--clean-image-cache ()
+  "Clean all except for the last `geiser-image-cache-keep-last'
+images in 'geiser-image-cache-dir'."
+  (interactive)
+    (dolist (file (butlast (geiser-repl--list-image-cache)
+                           geiser-image-cache-keep-last))
+      (delete-file file)))
+
+(defun geiser-repl--replace-images ()
+  "Replace all image patterns with actual images"
+  (with-silent-modifications
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "#<Image: \\([-+./_0-9a-zA-Z]+\\)>" nil t)
+        ;; can't pass a filename to create-image because emacs might
+        ;; not display it before it gets deleted (race condition)
+        (let* ((file (match-string 1))
+               (begin (match-beginning 0))
+               (end (match-end 0)))
+          (delete-region begin end)
+          (if (and geiser-repl-inline-images (display-images-p))
+            (put-image (create-image file) begin "[image]")
+            (progn
+              (goto-char begin)
+              (insert "[image] ; use M-x geiser-view-last-image to view")))
+          (setq geiser-image-cache-dir (file-name-directory file))
+          (geiser-repl--clean-image-cache))))))
+
+(defun geiser-view-last-image (n)
+  "Open the last displayed image in the system's image viewer.
+
+With prefix arg, open the N-th last shown image in the system's image viewer."
+  (interactive "p")
+  (let ((images (reverse (geiser-repl--list-image-cache))))
+    (if (>= (length images) n)
+        (start-process "Geiser image view"
+                       nil
+                       geiser-system-image-viewer
+                       (nth (- n 1) images))
+      (error "There aren't %d recent images" n))))
+
 (defun geiser-repl--output-filter (txt)
   (geiser-con--connection-update-debugging geiser-repl--connection txt)
+  (geiser-repl--replace-images)
   (when (string-match-p (geiser-con--connection-prompt geiser-repl--connection)
                         txt)
     (geiser-autodoc--disinhibit-autodoc)))

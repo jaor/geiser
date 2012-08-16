@@ -14,7 +14,10 @@
 (provide init-geiser-repl run-geiser-server start-geiser)
 
 (require (for-syntax racket/base)
+         file/convertible
          mzlib/thread
+         racket/file
+         racket/pretty
          racket/tcp
          geiser
          geiser/enter
@@ -88,10 +91,30 @@
 (define (geiser-prompt-read prompt)
   (make-repl-reader (geiser-read prompt)))
 
+(define (geiser-save-tmpimage imgbytes)
+  ;; Save imgbytes to a new temporary file and return the filename
+  (define filename (make-temporary-file "geiser-img-~a.png"))
+  (with-output-to-file filename #:exists 'truncate
+    (lambda () (display imgbytes)))
+  filename)
+
+(define (geiser-maybe-print-image value)
+  (cond
+   [(and (convertible? value)
+         (convert value 'png-bytes))
+    => (lambda (pngbytes)
+         ;; (The above could be problematic if a future version of racket
+         ;; suddenly decides it can "convert" strings to picts)
+         (printf "#<Image: ~a>\n" (geiser-save-tmpimage pngbytes)))]
+   [else
+    (unless (void? value)
+      (pretty-print value))]))
+
 (define (init-geiser-repl)
   (compile-enforce-module-constants #f)
   (current-load/use-compiled geiser-loader)
-  (current-prompt-read (geiser-prompt-read geiser-prompt)))
+  (current-prompt-read (geiser-prompt-read geiser-prompt))
+  (current-print geiser-maybe-print-image))
 
 (define (run-geiser-repl in out enforce-module-constants)
   (parameterize [(compile-enforce-module-constants enforce-module-constants)
@@ -99,7 +122,8 @@
                  (current-output-port out)
                  (current-error-port out)
                  (current-load/use-compiled geiser-loader)
-                 (current-prompt-read (geiser-prompt-read geiser-prompt))]
+                 (current-prompt-read (geiser-prompt-read geiser-prompt))
+                 (current-print geiser-maybe-print-image)]
     (read-eval-print-loop)))
 
 (define server-channel (make-channel))

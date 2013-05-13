@@ -95,6 +95,8 @@
     | C-x C-e     | Eval sexp before point                          |
     | C-c C-r     | Eval region                                     |
     | C-c M-r     | Eval region and switch to REPL                  |
+    | C-c C-b     | Eval buffer                                     |
+    | C-c M-b     | Eval buffer and switch to REPL                  |
     |-------------+-------------------------------------------------|
     | C-c C-m x   | Macro-expand definition around point            |
     | C-c C-m e   | Macro-expand sexp before point                  |

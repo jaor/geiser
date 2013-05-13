@@ -93,6 +93,29 @@ With prefix, goes to the REPL buffer afterwards (as
   (interactive "r")
   (geiser-eval-region start end t))
 
+(defun geiser-eval-buffer (&optional and-go raw nomsg)
+  "Eval the current buffer in the Geiser REPL.
+
+With prefix, goes to the REPL buffer afterwards (as
+`geiser-eval-buffer-and-go')"
+  (interactive "P")
+  (let ((start (point-min))
+        (end (point-max)))
+    (save-restriction
+      (narrow-to-region start end)
+      (check-parens))
+    (geiser-debug--send-region nil
+                               start
+                               end
+                               (and and-go 'geiser--go-to-repl)
+                               (not raw)
+                               nomsg)))
+
+(defun geiser-eval-buffer-and-go ()
+  "Eval the current buffer in the Geiser REPL and visit it afterwads."
+  (interactive)
+  (geiser-eval-buffer t))
+
 (defun geiser-eval-definition (&optional and-go)
   "Eval the current definition in the Geiser REPL.
 
@@ -309,6 +332,8 @@ interacting with the Geiser REPL is at your disposal.
   ("Eval region" "\C-c\C-r" geiser-eval-region :enable mark-active)
   ("Eval region and go" "\C-c\M-r" geiser-eval-region-and-go
    geiser-eval-region :enable mark-active)
+  ("Eval buffer" "\C-c\C-b" geiser-eval-buffer)
+  ("Eval buffer and go" "\C-c\M-b" geiser-eval-buffer-and-go)
 ;;  ("Compile definition" "\C-c\M-c" geiser-compile-definition)
 ;;  ("Compile definition and go" "\C-c\C-c" geiser-compile-definition-and-go)
   (menu "Macroexpand"

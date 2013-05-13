@@ -451,6 +451,10 @@ way, but it also teleports you to REPL after the evaluation.
 region.  Again, there's an @i{and-go} version available,
 @code{geiser-eval-region-and-go}, bound to @kbd{C-c M-r}.
 
+@code{geiser-eval-buffer}, bound to @kbd{C-c C-b}, evals the current
+buffer.  There is a @i{and-go} version available,
+@code{geiser-eval-buffer-and-go}, bound to @kbd{C-c M-b}.
+
 @cindex evaluating images
 @cindex image display
 For all the commands above, the result of the evaluation is displayed in

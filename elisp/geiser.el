@@ -1,4 +1,4 @@
-;;; geiser.el -- main geiser file
+;;; geiser.el --- GNU Emacs and Scheme talk to each other
 
 ;; Copyright (C) 2009, 2010, 2011, 2012, 2013 Jose Antonio Ortega Ruiz
 
@@ -122,3 +122,5 @@
 
 
 (provide 'geiser)
+
+;;; geiser.el ends here

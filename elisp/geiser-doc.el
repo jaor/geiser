@@ -287,6 +287,20 @@ help (e.g. browse an HTML page) implementing this method.")
                                                           impl)
                                       impl))))
 
+(defun geiser-doc-symbol--fill-current-buffer (docstring symbol &optional module impl)
+  (erase-buffer)
+  (geiser-doc--insert-title
+   (geiser-autodoc--str* (cdr (assoc "signature" docstring))))
+  (newline)
+  (insert (or (cdr (assoc "docstring" docstring)) ""))
+  (geiser-doc--buttonize-modules impl)
+  (setq geiser-doc--buffer-link
+        (geiser-doc--history-push (geiser-doc--make-link symbol
+                                                         module
+                                                         impl)))
+  (geiser-doc--insert-footer impl)
+  (goto-char (point-min)))
+
 (defun geiser-doc-symbol (symbol &optional module impl)
   (let* ((impl (or impl geiser-impl--implementation))
          (module (geiser-doc--module (or module (geiser-eval--get-module))
@@ -295,18 +309,7 @@ help (e.g. browse an HTML page) implementing this method.")
       (if (or (not ds) (not (listp ds)))
           (message "No documentation available for '%s'" symbol)
         (geiser-doc--with-buffer
-          (erase-buffer)
-          (geiser-doc--insert-title
-           (geiser-autodoc--str* (cdr (assoc "signature" ds))))
-          (newline)
-          (insert (or (cdr (assoc "docstring" ds)) ""))
-          (geiser-doc--buttonize-modules impl)
-          (setq geiser-doc--buffer-link
-                (geiser-doc--history-push (geiser-doc--make-link symbol
-                                                                 module
-                                                                 impl)))
-          (geiser-doc--insert-footer impl)
-          (goto-char (point-min)))
+          (geiser-doc-symbol--fill-current-buffer ds symbol module impl))
         (geiser-doc--pop-to-buffer)))))
 
 (defun geiser-doc-symbol-at-point (&optional arg)

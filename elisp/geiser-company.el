@@ -15,6 +15,7 @@
 (require 'geiser-completion)
 (require 'geiser-edit)
 (require 'geiser-base)
+(require 'geiser-doc)
 
 (eval-when-compile (require 'cl))
 
@@ -40,7 +41,16 @@
       (let ((help (geiser-autodoc--autodoc `((,id 0)))))
         (and help (substring-no-properties help))))))
 
-(defsubst geiser-company--doc-buffer (id) nil)
+(defun geiser-company--doc-buffer (id)
+  (let* ((impl geiser-impl--implementation)
+         (module (geiser-doc-module (geiser-eval--get-module) impl))
+         (symbol (make-symbol id))
+         (ds (geiser-doc--get-docstring symbol module)))
+    (if (or (not ds) (not (listp ds)))
+        (message "No documentation available for '%s'" symbol)
+      (with-current-buffer (get-buffer-create "*company-documentation*")
+        (geiser-doc-symbol--fill-current-buffer ds symbol module impl)
+        (current-buffer)))))
 
 (defun geiser-company--location (id)
   (ignore-errors

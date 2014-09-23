@@ -15,6 +15,7 @@
 (require 'geiser-completion)
 (require 'geiser-edit)
 (require 'geiser-base)
+(require 'geiser-doc)
 
 (eval-when-compile (require 'cl))
 

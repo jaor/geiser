@@ -1,84 +1,86 @@
 * Overview
 
-  Geiser is a generic Emacs/Scheme interaction mode, featuring an
-  enhanced REPL and a set of minor modes improving Emacs' basic scheme
-  major mode. The main functionalities provided are:
+Geiser is a generic Emacs/Scheme interaction mode, featuring an enhanced REPL
+and a set of minor modes improving Emacs' basic scheme major mode. The main
+functionalities provided are:
 
-    - Evaluation of forms in the namespace of the current module.
-    - Macro expansion.
-    - File/module loading.
-    - Namespace-aware identifier completion (including local bindings,
-      names visible in the current module, and module names).
-    - Autodoc: the echo area shows information about the signature of
-      the procedure/macro around point automatically.
-    - Jump to definition of identifier at point.
-    - Access to documentation (including docstrings when the
-      implementation provides it).
-    - Listings of identifiers exported by a given module.
-    - Listings of callers/callees of procedures.
-    - Rudimentary support for debugging (list of
-      evaluation/compilation error in an Emacs' compilation-mode
-      buffer).
-    - Support for inline images in schemes, such as Racket, that treat
-      them as first order values.
+- Evaluation of forms in the namespace of the current module.
+- Macro expansion.
+- File/module loading.
+- Namespace-aware identifier completion (including local bindings, names
+  visible in the current module, and module names).
+- Autodoc: the echo area shows information about the signature of the
+  procedure/macro around point automatically.
+- Jump to definition of identifier at point.
+- Access to documentation (including docstrings when the implementation
+  provides it).
+- Listings of identifiers exported by a given module.
+- Listings of callers/callees of procedures.
+- Rudimentary support for debugging (list of evaluation/compilation error in an
+  Emacs' compilation-mode buffer).
+- Support for inline images in schemes, such as Racket, that treat them as
+  first order values.
 
-   NOTE: if you're not in a hurry, Geiser's website
-   (http://www.nongnu.org/geiser/) contains a nicer manual, also
-   included in Geiser tarballs as a texinfo file (doc/geiser.info).
+NOTE: if you're not in a hurry, Geiser's website
+(http://www.nongnu.org/geiser/) contains a nicer manual, also included in
+Geiser tarballs as a texinfo file (doc/geiser.info).
 
 * Requirements
 
-    Geiser needs Emacs 23.2 or better, and at least one of the
-    supported scheme implementations:
-      - Guile 2.0 or better.
-      - PLT Racket 5.3 or better.
+Geiser needs Emacs 23.2 or better, and at least one of the
+supported scheme implementations:
+
+- Guile 2.0 or better.
+- PLT Racket 5.3 or better.
 
 * Installation
 
-  The easiest way is to use ELPA/Marmalade, and just type
-  `M-x install-package RET geiser` inside emacs.
+The easiest way is to use ELPA/Marmalade, and just type =M-x install-package
+RET geiser= inside emacs.
 
-  Geiser can be used either directly from its uninstalled source tree
-  or byte-compiled and installed after perfoming the standard
-  configure/make/make install dance.  See the INSTALL file for more details.
+Geiser can be used either directly from its uninstalled source tree or
+byte-compiled and installed after perfoming the standard configure/make/make
+install dance.  See the INSTALL file for more details.
 
 * Basic configuration
 
-  The loading invocations above install all supported Scheme
-  implementations. You can list explicitly the ones that you want by
-  setting the variable `geiser-impl-installed-implementations' *before*
-  loading geiser.el. For instance:
+The loading invocations above install all supported Scheme implementations. You
+can list explicitly the ones that you want by setting the variable
+`geiser-impl-installed-implementations' *before* loading geiser.el. For
+instance:
 
-  (setq geiser-impl-installed-implementations '(racket guile))
+#+BEGIN_SRC emacs-lisp
+(setq geiser-impl-installed-implementations '(racket guile))
+#+END_SRC
 
-   On opening a scheme file, Geiser will try to guess its Scheme,
-   defaulting to the first in the list. Use `C-c C-s' to select the
-   implementation by hand (on a per file basis).
+On opening a scheme file, Geiser will try to guess its Scheme, defaulting to
+the first in the list. Use `C-c C-s' to select the implementation by hand (on a
+per file basis).
 
-  Check the geiser customization group for some options with:
+Check the geiser customization group for some options with: =M-x
+customize-group RET geiser RET=
 
-      M-x customize-group RET geiser RET
+In particular, customize `geiser-<impl>-binary', which should point
+to an executable in your path.
 
-  In particular, customize `geiser-<impl>-binary', which should point
-  to an executable in your path.
-
-  To start a REPL, M-x geiser.
+To start a REPL, =M-x geiser=.
 
 ** Completion with company-mode
 
-    Geiser offers identifier and module name completion, bound to
-    M-TAB and M-` respectively. Only names visible in the current
-    module are offered.
+Geiser offers identifier and module name completion, bound to
+M-TAB and M-` respectively. Only names visible in the current
+module are offered.
 
-    While that is cool and all, things are even better: if you have
-    company-mode (http://company-mode.github.io/) installed,
-    Geiser's completion will use it. Just require company-mode and,
-    from then on, any new scheme buffer or REPL will use it.
+While that is cool and all, things are even better: if you have
+company-mode (http://company-mode.github.io/) installed,
+Geiser's completion will use it. Just require company-mode and,
+from then on, any new scheme buffer or REPL will use it.
 
 * Quick key reference
 
 ** In Scheme buffers:
 
+    | Key         | Description                                     |
     |-------------+-------------------------------------------------|
     | C-c C-z     | Switch to REPL                                  |
     | C-c C-a     | Switch to REPL and current module               |
@@ -121,6 +123,7 @@
 
 ** In the REPL
 
+    | Key         | Description                                        |
     |-------------+----------------------------------------------------|
     | C-c C-z     | Start Scheme REPL, or jump to previous buffer      |
     | C-c M-o     | Clear scheme output                                |
@@ -143,6 +146,7 @@
 
 ** In the documentation browser:
 
+    | Key      | Description                                  |
     |----------+----------------------------------------------|
     | f        | Next page                                    |
     | b        | Previous page                                |
@@ -164,5 +168,5 @@
 
 ** In backtrace (evaluation/compile result) buffers:
 
-    - M-g n, M-g p, C-x ` for error navigation.
-    - q to bury buffer.
+- =M-g n=, =M-g p=, =C-x `= for error navigation.
+- =q= to bury buffer.

@@ -25,10 +25,13 @@ elpa: README.elpa info
 
 	$(mkdir_p) $(scheme_dir)/guile/geiser
 	$(mkdir_p) $(scheme_dir)/racket/geiser
+	$(mkdir_p) $(scheme_dir)/chicken/geiser
 	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/guile/geiser/* \
                         $(scheme_dir)/guile/geiser
 	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/racket/geiser/* \
                         $(scheme_dir)/racket/geiser
+	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/chicken/geiser/* \
+                        $(scheme_dir)/chicken/geiser
 
 	$(INSTALL_DATA) $(srcdir)/doc/geiser.info $(elpa_dir)
 	(cd $(elpa_dir) && install-info --dir=dir geiser.info 2>/dev/null)

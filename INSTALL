@@ -50,6 +50,16 @@ package-install-file.
 
     (require 'geiser-install)
 
+* Chicken Addendum
+    These steps are necessary to fully support Chicken Scheme, but are
+    not required for any other scheme.
+
+    - Install the necessary support eggs:
+      $ chicken-install -s apropos chicken-doc
+    - Update the Chicken documentation database:
+      $ cd `csi -p '(chicken-home)'`
+      $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
+
     You're ready to go!
 
 Geiser's makefile accepts also all those other standard autotools

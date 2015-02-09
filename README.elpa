@@ -34,6 +34,18 @@ Main functionalities:
     - Support for inline images in schemes, such as Racket, that treat
       them as first order values.
 
+
+Chicken Addendum:
+    These steps are necessary to fully support Chicken Scheme, but are
+    not required for any other scheme.
+
+    - Install the necessary support eggs:
+      $ chicken-install -s apropos chicken-doc
+
+    - Update the Chicken documentation database:
+      $ cd `csi -p '(chicken-home)'`
+      $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
+
 See http://www.nongnu.org/geiser/ for the full manual in HTML form, or
 the the info manual installed by this package.
 

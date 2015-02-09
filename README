@@ -32,6 +32,7 @@
     supported scheme implementations:
       - Guile 2.0 or better.
       - PLT Racket 5.3 or better.
+      - Chicken 4.8.0 or better.
 
 * Installation
 
@@ -41,6 +42,9 @@
   Geiser can be used either directly from its uninstalled source tree
   or byte-compiled and installed after perfoming the standard
   configure/make/make install dance.  See the INSTALL file for more details.
+
+  Chicken Scheme requires additional steps which are detailed in the INSTALL
+  file and the README.elpa file.
 
 * Basic configuration
 

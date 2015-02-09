@@ -20,6 +20,7 @@ dist_lisp_LISP = \
    geiser-menu.el \
    geiser-mode.el \
    geiser-racket.el \
+   geiser-chicken.el \
    geiser-popup.el \
    geiser-reload.el \
    geiser-repl.el \

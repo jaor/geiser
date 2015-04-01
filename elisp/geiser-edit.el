@@ -233,10 +233,14 @@ or following links in error buffers.")
   "Opens a new window visiting the definition of the symbol at point.
 With prefix, asks for the symbol to edit."
   (interactive "P")
-  (let* ((symbol (or (and (not arg) (geiser--symbol-at-point))
-                     (geiser-completion--read-symbol "Edit symbol: ")))
-         (cmd `(:eval (:ge symbol-location ',symbol)))
-         (marker (point-marker)))
+  (geiser-edit-goto-symbol
+   (or (and (not arg) (geiser--symbol-at-point))
+       (geiser-completion--read-symbol "Edit symbol: "))))
+
+(defun geiser-edit-goto-symbol (symbol)
+  "Opens a new window visiting the definition of SYMBOL."
+  (let ((cmd `(:eval (:ge symbol-location ',symbol)))
+        (marker (point-marker)))
     (condition-case err
         (progn (geiser-edit--try-edit symbol (geiser-eval--send/wait cmd))
                (when marker (ring-insert find-tag-marker-ring marker)))

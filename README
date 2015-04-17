@@ -177,3 +177,5 @@
 
     - M-g n, M-g p, C-x ` for error navigation.
     - q to bury buffer.
+
+Join the chat at https://gitter.im/jaor/geiser

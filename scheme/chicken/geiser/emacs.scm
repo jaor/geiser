@@ -259,11 +259,11 @@
       (set! result
         (cond
          ((list? result)
-          (map (lambda (v) (with-output-to-string (lambda () (write v)))) result))
+          (map (lambda (v) (with-output-to-string (lambda () (pretty-print v)))) result))
          ((eq? result (if #f #t))
           (list output))
          (else
-          (list (with-output-to-string (lambda () (write result)))))))
+          (list (with-output-to-string (lambda () (pretty-print result)))))))
 
       (let ((out-form
              `((result ,@result)

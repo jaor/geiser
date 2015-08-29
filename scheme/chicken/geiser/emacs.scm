@@ -229,7 +229,7 @@
     (string-append "^([^#]+#)*" (regexp-escape prefix)))
 
   (define (describe-symbol sym #!key (exact? #f))
-    (let* ((str (symbol->string sym))
+    (let* ((str (->string sym))
            (found (apropos-information-list (regexp (make-apropos-regex str)) #:macros? #t)))
       (delete-duplicates
        (if exact?
@@ -339,7 +339,7 @@
 
   ;; Builds a signature list from an identifier
   (define (find-signatures toplevel-module sym)
-    (define str (symbol->string sym))
+    (define str (->string sym))
 
     (define (make-module-list sym module-sym)
       (if (null? module-sym)

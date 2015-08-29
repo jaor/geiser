@@ -375,7 +375,7 @@
                 (args (if (or (list? rest) (pair? rest)) (cdr rest) '())))
 
             (define (clean-arg arg)
-              (string->symbol (string-substitute "(.*[^0-9]+)[0-9]+" "\\1" (symbol->string arg))))
+              (string->symbol (string-substitute "(.*[^0-9]+)[0-9]+" "\\1" (->string arg))))
 
             (define (collect-args args #!key (reqs? #t) (opts? #f) (keys? #f))
               (when (not (null? args))

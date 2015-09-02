@@ -263,23 +263,31 @@ This function uses `geiser-chicken-init-file' if it exists."
   (interactive)
   (geiser-connect 'chicken))
 
+(defun geiser-chicken--compile-or-load (force-load)
+  (let ((target 
+         (expand-file-name "chicken/geiser/emacs.so" geiser-scheme-dir))
+        (source
+         (expand-file-name "chicken/geiser/emacs.scm" geiser-scheme-dir))
+        (force-load (or force-load (eq system-type 'windows-nt)))
+        (suppression-prefix
+         "(define geiser-stdout (current-output-port))(current-output-port (make-output-port (lambda a #f) (lambda a #f)))")
+        (suppression-postfix
+         "(current-output-port geiser-stdout)"))
+    (let ((load-sequence
+           (cond
+            (force-load
+             (format "(load \"%s\")\n" source))
+            ((file-exists-p target)
+             (format "%s(load \"%s\")(import geiser)%s\n"
+                     suppression-prefix target suppression-postfix))
+            (t
+             (format "%s(use utils)(compile-file \"%s\" options: '(\"-O3\") output-file: \"%s\"load: #t)(import geiser)%s\n"
+                     suppression-prefix source target suppression-postfix)))))
+      (geiser-eval--send/wait load-sequence))))
+
 (defun geiser-chicken--startup (remote)
   (compilation-setup t)
-  (let ((geiser-log-verbose-p t)
-        (geiser-chicken-load-file (expand-file-name "chicken/geiser/emacs.scm" geiser-scheme-dir)))
-    (if geiser-chicken-compile-geiser-p
-      (geiser-eval--send/wait (format "
-;; Sadly, (use import compile-file) must be run at top-level, so we have a stdout binding
-(define geiser-stdout (current-output-port))
-(current-output-port (make-output-port (lambda a #f) (lambda a #f)))
-(use utils)
-(compile-file \"%s\")
-(import geiser)
-(current-output-port geiser-stdout)
-"
-                                      geiser-chicken-load-file))
-      (geiser-eval--send/wait (format "(load \"%s\")"
-                                      geiser-chicken-load-file)))))
+  (geiser-chicken--compile-or-load (not geiser-chicken-compile-geiser-p)))
 
 ;;; Implementation definition:
 

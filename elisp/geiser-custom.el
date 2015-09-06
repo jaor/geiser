@@ -30,6 +30,7 @@
   :group 'faces)
 
 (defmacro geiser-custom--defface (face def group doc)
+  (declare (doc-string 4))
   (let ((face (intern (format "geiser-font-lock-%s" face))))
     `(defface ,face (face-default-spec ,def)
        ,(format "Face for %s." doc)
@@ -49,6 +50,7 @@
   (add-to-list 'geiser-custom--memoized-vars name))
 
 (defmacro geiser-custom--defcustom (name &rest body)
+  (declare (doc-string 3) (debug (name body)))
   `(progn
      (geiser-custom--memoize ',name)
      (defcustom ,name ,@body)))
@@ -63,4 +65,14 @@
 (put 'geiser-custom--defcustom 'lisp-indent-function 2)
 
 
+(defconst geiser-custom-font-lock-keywords
+  (eval-when-compile
+    `((,(concat "(\\(geiser-custom--\\(?:defcustom\\|defface\\)\\)\\_>"
+                "[ \t'\(]*"
+                "\\(\\(?:\\sw\\|\\s_\\)+\\)?")
+       (1 font-lock-keyword-face)
+       (2 font-lock-variable-name-face nil t)))))
+
+(font-lock-add-keywords 'emacs-lisp-mode geiser-custom-font-lock-keywords)
+
 (provide 'geiser-custom)

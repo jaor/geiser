@@ -340,8 +340,3 @@ buffer contains Scheme code of the given implementation.")
 
 
 (provide 'geiser-impl)
-
-
-;;; Initialization:
-;; After providing 'geiser-impl, so that impls can use us.
-(mapc 'geiser-impl--load-impl geiser-active-implementations)

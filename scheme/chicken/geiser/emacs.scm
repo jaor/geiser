@@ -259,11 +259,11 @@
       (set! result
         (cond
          ((list? result)
-          (map (lambda (v) (with-output-to-string (lambda () (pretty-print v)))) result))
+          (map (lambda (v) (with-output-to-string (lambda () (write v)))) result))
          ((eq? result (if #f #t))
           (list output))
          (else
-          (list (with-output-to-string (lambda () (pretty-print result)))))))
+          (list (with-output-to-string (lambda () (write result)))))))
 
       (let ((out-form
              `((result ,@result)
@@ -669,7 +669,7 @@
   (define (geiser-macroexpand toplevel-module form . rest)
     (with-output-to-string
       (lambda ()
-        (pretty-print (expand form)))))
+        (write (expand form)))))
 
 ;; End module
   )

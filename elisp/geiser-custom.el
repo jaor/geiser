@@ -35,8 +35,7 @@
     `(defface ,face (face-default-spec ,def)
        ,(format "Face for %s." doc)
        :group ',group
-       :group 'geiser-faces
-       :group 'faces)))
+       :group 'geiser-faces)))
 
 (put 'geiser-custom--defface 'lisp-indent-function 1)
 

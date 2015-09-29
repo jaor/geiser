@@ -178,7 +178,7 @@ using start-geiser, a procedure in the geiser/server module."
         (t nil)))
 
 (defun geiser-racket--symbol-begin (module)
-  (save-excursion (skip-syntax-backward "^-()>") (point)))
+  (save-excursion (skip-syntax-backward "^'-()>") (point)))
 
 (defun geiser-racket--import-command (module)
   (and (stringp module)

@@ -335,7 +335,7 @@ This function uses `geiser-guile-init-file' if it exists."
 (defconst geiser-guile-minimum-version "2.0")
 
 (defun geiser-guile--version (binary)
-  (shell-command-to-string (format "%s  -c '(display (version))'" binary)))
+  (shell-command-to-string (format "%s -c %s" binary (shell-quote-argument "(display (version))"))))
 
 (defun geiser-guile-update-warning-level ()
   "Update the warning level used by the REPL.

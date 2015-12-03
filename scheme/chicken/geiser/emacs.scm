@@ -432,21 +432,20 @@
 
   ;; Builds a signature list from an identifier
   (define (find-signatures sym)
-    (let ((str (->string sym)))
+    (map
+     (cut fmt sym <>)
+     (filter
+      (lambda (v)
+	(eq? (car v) sym))
       (map
-       (cut fmt sym <>)
-       (filter
-       	(lambda (v)
-       	  (eq? (car v) sym))
-	(map
-	 (lambda (s)
-	   ;; Remove egg name and add module
-	   (let-values
-	       (((name module) (remove-internal-name-mangling (car s))))	     
-	     (cons (string->symbol name)
-		   (cons (if (string? module) (string->symbol module) module)
-			 (cdr s)))))
-	 (apropos-information-list sym #:macros? #t))))))
+       (lambda (s)
+	 ;; Remove egg name and add module
+	 (let-values
+	     (((name module) (remove-internal-name-mangling (car s))))	     
+	   (cons (string->symbol name)
+		 (cons (if (string? module) (string->symbol module) module)
+		       (cdr s)))))
+       (apropos-information-list sym #:macros? #t)))))
 
   ;; Builds the documentation from Chicken Doc for a specific symbol
   (define (make-doc symbol #!optional (filter-for-type #f))
@@ -567,6 +566,8 @@
      ((null? ids) '())
      ((not (list? ids))
       (geiser-autodoc (list ids)))
+     ((not (symbol? (car ids)))
+      (geiser-autodoc (cdr ids)))
      (else
       (let ((details (find-signatures (car ids))))
 	(if (null? details)

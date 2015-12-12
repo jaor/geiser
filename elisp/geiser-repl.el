@@ -760,14 +760,14 @@ buffer."
                              (geiser-repl--read-address host port))
     (geiser-repl--maybe-remember-scm-buffer buffer)))
 
-(defun geiser-connect-local (impl &optional socket)
+(defun geiser-connect-local (impl socket)
   "Start a new Geiser REPL connected to a remote Scheme process
 over a Unix-domain socket."
   (interactive
-   (list (geiser-repl--get-impl "Connect to Scheme implementation: ")))
+   (list (geiser-repl--get-impl "Connect to Scheme implementation: ")
+         (read-file-name "Socket file name: ")))
   (let ((buffer (current-buffer)))
-    (geiser-repl--start-repl impl
-                             (read-file-name "Socket file name: "))
+    (geiser-repl--start-repl impl socket)
     (geiser-repl--maybe-remember-scm-buffer buffer)))
 
 (make-variable-buffer-local

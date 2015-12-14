@@ -24,7 +24,8 @@
   #:use-module (system base message)
   #:use-module (system base pmatch)
   #:use-module (system vm program)
-  #:use-module (ice-9 pretty-print))
+  #:use-module (ice-9 pretty-print)
+  #:use-module (system vm loader))
 
 
 (define compile-opts '())
@@ -70,14 +71,21 @@
          (ev (lambda ()
                (call-with-values
                    (lambda ()
-                     (let* ((o (compile form
-                                        #:to 'objcode
+                     (let* ((bytecode? (not (string=? "0" (minor-version))))
+			    (compilation-target  (cond
+                                                  (bytecode? 'bytecode)
+                                                  (else  'objcode)))
+                            (compilation-fn (cond
+                                             (bytecode? load-thunk-from-memory)
+                                             (else  make-program)))
+                            (o (compile form
+                                        #:to compilation-target
                                         #:env module
                                         #:opts opts))
-                            (thunk (make-program o)))
-                       (start-stack 'geiser-evaluation-stack
-                                    (eval `(,thunk) module))))
-                 (lambda vs vs)))))
+                            (thunk (compilation-fn o)))
+		       (start-stack 'geiser-evaluation-stack
+				    (eval `(,thunk) module))))
+		 (lambda vs vs)))))
     (call-with-result ev)))
 
 (define (ge:eval form module-name)

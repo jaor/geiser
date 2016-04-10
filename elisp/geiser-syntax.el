@@ -41,7 +41,7 @@
  (match 1)
  (match-lambda 0)
  (match-lambda* 0)
- (match-let 1)
+ (match-let scheme-let-indent)
  (match-let* 1)
  (match-letrec 1)
  (opt-lambda 1)

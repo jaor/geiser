@@ -279,12 +279,12 @@ help (e.g. browse an HTML page) implementing this method.")
     (with--geiser-implementation impl
       (geiser-edit-symbol-at-point))))
 
-(defvar geiser-doc-mode-map nil)
-(setq geiser-doc-mode-map
-      (let ((map (make-sparse-keymap)))
-        (suppress-keymap map)
-        (set-keymap-parent map button-buffer-map)
-        map))
+(defvar geiser-doc-mode-map
+  (let ((map (make-sparse-keymap)))
+    (suppress-keymap map)
+    (set-keymap-parent map button-buffer-map)
+    map)
+  "Keymap for `geiser-doc-mode'.")
 
 (defun geiser-doc-switch-to-repl ()
   (interactive)

@@ -75,18 +75,14 @@ See also `geiser-repl-auto-display-images-p'."
   (let ((map (make-sparse-keymap)))
     (suppress-keymap map)
     (set-keymap-parent map button-buffer-map)
-    map))
+    map)
+  "Keymap for `geiser-debug-mode'.")
 
-(defun geiser-debug-mode ()
+(define-derived-mode geiser-debug-mode nil "Geiser DBG"
   "A major mode for displaying Scheme compilation and evaluation results.
 \\{geiser-debug-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
   (buffer-disable-undo)
-  (use-local-map geiser-debug-mode-map)
   (set-syntax-table scheme-mode-syntax-table)
-  (setq mode-name "Geiser DBG")
-  (setq major-mode 'geiser-debug-mode)
   (setq next-error-function 'geiser-edit--open-next)
   (setq buffer-read-only t))
 

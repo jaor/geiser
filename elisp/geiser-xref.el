@@ -46,18 +46,14 @@
   (let ((map (make-sparse-keymap)))
     (suppress-keymap map)
     (set-keymap-parent map button-buffer-map)
-    map))
+    map)
+  "Keymap for `geiser-xref-mode'.")
 
-(defun geiser-xref-mode ()
+(define-derived-mode geiser-xref-mode nil "Geiser Xref"
   "Major mode for displaying cross-references.
 \\{geiser-xref-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
   (buffer-disable-undo)
-  (use-local-map geiser-xref-mode-map)
   (set-syntax-table scheme-mode-syntax-table)
-  (setq mode-name "Geiser Xref")
-  (setq major-mode 'geiser-xref-mode)
   (setq buffer-read-only t))
 
 

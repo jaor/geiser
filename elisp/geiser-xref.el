@@ -38,6 +38,29 @@
   'bold geiser-xref "headers in cross-reference buffers")
 
 
+;;; Buffer and mode:
+
+(geiser-popup--define xref "*Geiser xref*" geiser-xref-mode)
+
+(defvar geiser-xref-mode-map
+  (let ((map (make-sparse-keymap)))
+    (suppress-keymap map)
+    (set-keymap-parent map button-buffer-map)
+    map))
+
+(defun geiser-xref-mode ()
+  "Major mode for displaying cross-references.
+\\{geiser-xref-mode-map}"
+  (interactive)
+  (kill-all-local-variables)
+  (buffer-disable-undo)
+  (use-local-map geiser-xref-mode-map)
+  (set-syntax-table scheme-mode-syntax-table)
+  (setq mode-name "Geiser Xref")
+  (setq major-mode 'geiser-xref-mode)
+  (setq buffer-read-only t))
+
+
 ;;; Ref button:
 
 (define-button-type 'geiser-xref--button
@@ -120,29 +143,6 @@
                                           (capitalize rkind)
                                           name)
                                   res))))
-
-
-;;; Buffer and mode:
-
-(geiser-popup--define xref "*Geiser xref*" geiser-xref-mode)
-
-(defvar geiser-xref-mode-map
-  (let ((map (make-sparse-keymap)))
-    (suppress-keymap map)
-    (set-keymap-parent map button-buffer-map)
-    map))
-
-(defun geiser-xref-mode ()
-  "Major mode for displaying cross-references.
-\\{geiser-xref-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
-  (buffer-disable-undo)
-  (use-local-map geiser-xref-mode-map)
-  (set-syntax-table scheme-mode-syntax-table)
-  (setq mode-name "Geiser Xref")
-  (setq major-mode 'geiser-xref-mode)
-  (setq buffer-read-only t))
 
 
 ;;; Commands:

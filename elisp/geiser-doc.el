@@ -314,17 +314,12 @@ help (e.g. browse an HTML page) implementing this method.")
   --
   ("Quit" nil View-quit))
 
-(defun geiser-doc-mode ()
+(define-derived-mode geiser-doc-mode nil "Geiser Doc"
   "Major mode for browsing scheme documentation.
 \\{geiser-doc-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
   (buffer-disable-undo)
   (setq truncate-lines t)
-  (use-local-map geiser-doc-mode-map)
   (set-syntax-table scheme-mode-syntax-table)
-  (setq mode-name "Geiser Doc")
-  (setq major-mode 'geiser-doc-mode)
   (setq geiser-eval--get-module-function 'geiser-doc--module)
   (setq buffer-read-only t))
 

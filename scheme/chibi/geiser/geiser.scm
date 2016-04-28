@@ -30,7 +30,8 @@
     (values)))
 
 (define (geiser:module-completions prefix . rest)
-  (let ((modules (map car (available-modules))))
+  ;; (available-modules) walks the directory tree and is too slow
+  (let ((modules (map car *modules*)))
     (map write-to-string
          (delete-duplicates
           (filter (lambda (module)

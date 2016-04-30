@@ -104,6 +104,13 @@
   "Start a Geiser MIT/GNU Scheme REPL, or switch to a running one." t)
 
 ;;;###autoload
+(autoload 'run-chibi "geiser-chibi" "Start a Geiser Chibi Scheme REPL." t)
+
+;;;###autoload
+(autoload 'switch-to-chibi "geiser-chibi"
+  "Start a Geiser Chibi Scheme REPL, or switch to a running one." t)
+
+;;;###autoload
 (autoload 'geiser-mode "geiser-mode"
   "Minor mode adding Geiser REPL interaction to Scheme buffers." t)
 

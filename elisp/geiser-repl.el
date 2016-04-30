@@ -788,23 +788,22 @@ over a Unix-domain socket."
 (defun switch-to-geiser (&optional ask impl buffer)
   "Switch to running Geiser REPL.
 
+If REPL is the current buffer, switch to the previously used
+scheme buffer.
+
 With prefix argument, ask for which one if more than one is running.
 If no REPL is running, execute `run-geiser' to start a fresh one."
   (interactive "P")
   (let* ((impl (or impl geiser-impl--implementation))
          (in-repl (eq major-mode 'geiser-repl-mode))
          (in-live-repl (and in-repl (get-buffer-process (current-buffer))))
-         (repl (cond ((and (not ask)
-                           (not impl)
-                           (not in-repl)
-                           (or geiser-repl--repl (car geiser-repl--repls))))
-                     ((and (not ask)
-                           (not in-repl)
-                           impl
-                           (geiser-repl--repl/impl impl))))))
-    (cond ((or in-live-repl
-               (and (eq (current-buffer) repl) (not (eq repl buffer))))
-           (when (buffer-live-p geiser-repl--last-scm-buffer)
+         (repl (unless ask
+                 (if impl
+                     (geiser-repl--repl/impl impl)
+                   (or geiser-repl--repl (car geiser-repl--repls))))))
+    (cond (in-live-repl
+           (when (and (not (eq repl buffer))
+                      (buffer-live-p geiser-repl--last-scm-buffer))
              (geiser-repl--switch-to-buffer geiser-repl--last-scm-buffer)))
           (repl (geiser-repl--switch-to-buffer repl))
           ((geiser-repl--remote-p)

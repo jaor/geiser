@@ -22,10 +22,13 @@ elpa: README.elpa info
 	$(INSTALL_DATA) $(abs_top_srcdir)/elisp/*.el \
                         $(elpa_dir)
 
+	$(mkdir_p) $(scheme_dir)/chez/geiser
 	$(mkdir_p) $(scheme_dir)/guile/geiser
 	$(mkdir_p) $(scheme_dir)/racket/geiser
 	$(mkdir_p) $(scheme_dir)/chicken/geiser
 	$(mkdir_p) $(scheme_dir)/mit/geiser
+	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/chez/geiser/* \
+                        $(scheme_dir)/chez/geiser
 	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/guile/geiser/* \
                         $(scheme_dir)/guile/geiser
 	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/racket/geiser/* \

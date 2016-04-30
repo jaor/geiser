@@ -61,6 +61,13 @@
   "Switch to a running one Geiser REPL." t)
 
 ;;;###autoload
+(autoload 'run-chez "geiser-chez" "Start a Geiser Chez REPL." t)
+
+;;;###autoload
+(autoload 'switch-to-chez "geiser-chez"
+  "Start a Geiser Chez REPL, or switch to a running one." t)
+
+;;;###autoload
 (autoload 'run-guile "geiser-guile" "Start a Geiser Guile REPL." t)
 
 ;;;###autoload

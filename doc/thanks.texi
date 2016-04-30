@@ -27,7 +27,7 @@ Diogo F. S. Ramos is Geiser's most indefatigable user and bug reporter,
 and the mailing list has been a far less lonely place since he came.
 
 Aleix Conchillo has been my favourite spammer, beta tester and patch
-sender during more years and for more projects than i can remember.
+sender during more years and for more projects than I can remember.
 
 Eduardo Cavazos' contagious enthusiasm has helped in many ways to keep
 Geiser alive, and he's become its best evangelist in R6RS circles.
@@ -41,7 +41,7 @@ questions.
 
 Matthew Flatt, Robby Findler and the rest of the PLT team did not only
 answer my inquiries, but provided almost instant fixes to the few
-issues i found.
+issues I found.
 
 Thanks also to the PLT and Guile communities, for showing me that
 Geiser was not only possible, but a pleasure to hack on.  And to the

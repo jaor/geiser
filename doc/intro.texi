@@ -43,7 +43,7 @@ use any metadata available: procedure arities and argument lists to
 display interactive help, documentation strings, location information
 to jump to definitions, export lists to provide completion, and so on
 and so forth.  Although this is not an all-or-none proposition (Geiser
-can operate with just part of that functionality available), i
+can operate with just part of that functionality available), I
 initially concentrated in supporting those Schemes with the richest
 (to my knowledge) introspection capabilities, namely, Guile and
 Racket.  Later on, Dan Leslie added support for Chicken, and there's
@@ -87,8 +87,8 @@ Support for image display in those Schemes that treat them as first
 class values.
 @end itemize
 
-In the following pages, i'll try to explain what these features
-actually are (i'm just swanking here), and how to use them for your
+In the following pages, I'll try to explain what these features
+actually are (I'm just swanking here), and how to use them for your
 profit.  But, before that, let's see how to install Geiser.
 
 @c Local Variables:

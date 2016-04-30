@@ -43,7 +43,6 @@
 (defun geiser-chibi--parameters ()
   "Return a list with all parameters needed to start Chibi Scheme.
 This function uses `geiser-chibi-init-file' if it exists."
-;;  `("--load" ,(expand-file-name "chibi/geiser/load.scm" geiser-scheme-dir))
   `("-I" ,(expand-file-name "chibi/geiser/" geiser-scheme-dir)
     "-m" "geiser")
   )
@@ -72,9 +71,6 @@ This function uses `geiser-chibi-init-file' if it exists."
      (let ((form (mapconcat 'identity args " ")))
        (format "(geiser:%s %s)" proc form)))))
 
-;; (defconst geiser-chibi--module-re
-;;   ".*;; package: +\\(([^)]*)\\)")
-
 (defun geiser-chibi--get-module (&optional module)
   (cond ((null module)
          :f)
@@ -84,16 +80,6 @@ This function uses `geiser-chibi-init-file' if it exists."
              (car (geiser-syntax--read-from-string module))
            (error :f)))
         (t :f)))
-
-;; (defun geiser-chibi--module-cmd (module fmt &optional def)
-;;   (when module
-;;     (let* ((module (geiser-chibi--get-module module))
-;;            (module (cond ((or (null module) (eq module :f)) def)
-;;                          (t (format "%s" module)))))
-;;       (and module (format fmt module)))))
-
-;; (defun geiser-chibi--enter-command (module)
-;;   (geiser-chibi--module-cmd module "(geiser:ge '%s)" "()"))
 
 (defun geiser-chibi--symbol-begin (module)
   (if module
@@ -116,13 +102,9 @@ This function uses `geiser-chibi-init-file' if it exists."
                                  (shell-quote-argument binary)))
                         " ")))
 
-;; (defconst geiser-chibi--path-rx "^In \\([^:\n ]+\\):\n")
 (defun geiser-chibi--startup (remote)
   (let ((geiser-log-verbose-p t))
     (compilation-setup t)
-    ;; (when (and (stringp geiser-chibi-source-directory)
-    ;;            (not (string-empty-p geiser-chibi-source-directory)))
-    ;;   (geiser-eval--send/wait (format "(geiser:set-chibi-scheme-source-directory %S)" geiser-chibi-source-directory)))
     ))
 
 ;;; Implementation definition:
@@ -148,9 +130,6 @@ This function uses `geiser-chibi-init-file' if it exists."
   ;; (keywords geiser-chibi--keywords)
   ;; (case-sensitive geiser-chibi-case-sensitive-p)
   )
-
-;; notes: (available-modules) in (chibi modules)
-;; (env-exports (module-env (find-module '(scheme char)))), modules: (meta) (chibi modules) (chibi)
 
 (geiser-impl--add-to-alist 'regexp "\\.scm$" 'chibi t)
 (geiser-impl--add-to-alist 'regexp "\\.sld$" 'chibi t)

@@ -43,7 +43,6 @@
 (defun geiser-chez--parameters ()
   "Return a list with all parameters needed to start Chez Scheme.
 This function uses `geiser-chez-init-file' if it exists."
-;;  `("--load" ,(expand-file-name "chez/geiser/load.scm" geiser-scheme-dir))
   `(,(expand-file-name "chez/geiser/geiser.ss" geiser-scheme-dir))
   )
 
@@ -71,9 +70,6 @@ This function uses `geiser-chez-init-file' if it exists."
      (let ((form (mapconcat 'identity args " ")))
        (format "(geiser:%s %s)" proc form)))))
 
-;; (defconst geiser-chez--module-re
-;;   ".*;; package: +\\(([^)]*)\\)")
-
 (defun geiser-chez--get-module (&optional module)
   (cond ((null module)
          :f)
@@ -83,16 +79,6 @@ This function uses `geiser-chez-init-file' if it exists."
              (car (geiser-syntax--read-from-string module))
            (error :f)))
         (t :f)))
-
-;; (defun geiser-chez--module-cmd (module fmt &optional def)
-;;   (when module
-;;     (let* ((module (geiser-chez--get-module module))
-;;            (module (cond ((or (null module) (eq module :f)) def)
-;;                          (t (format "%s" module)))))
-;;       (and module (format fmt module)))))
-
-;; (defun geiser-chez--enter-command (module)
-;;   (geiser-chez--module-cmd module "(geiser:ge '%s)" "()"))
 
 (defun geiser-chez--symbol-begin (module)
   (if module
@@ -114,13 +100,9 @@ This function uses `geiser-chez-init-file' if it exists."
    (format "%s --version"
            (shell-quote-argument binary))))
 
-;; (defconst geiser-chez--path-rx "^In \\([^:\n ]+\\):\n")
 (defun geiser-chez--startup (remote)
   (let ((geiser-log-verbose-p t))
     (compilation-setup t)
-    ;; (when (and (stringp geiser-chez-source-directory)
-    ;;            (not (string-empty-p geiser-chez-source-directory)))
-    ;;   (geiser-eval--send/wait (format "(geiser:set-chez-scheme-source-directory %S)" geiser-chez-source-directory)))
     (geiser-eval--send/wait "(begin (import (geiser)) (write `((result ) (output . \"\"))) (newline))")))
 
 ;;; Implementation definition:
@@ -146,9 +128,6 @@ This function uses `geiser-chez-init-file' if it exists."
   ;; (keywords geiser-chez--keywords)
   ;; (case-sensitive geiser-chez-case-sensitive-p)
   )
-
-;; notes: (available-modules) in (chez modules)
-;; (env-exports (module-env (find-module '(scheme char)))), modules: (meta) (chez modules) (chez)
 
 (geiser-impl--add-to-alist 'regexp "\\.ss$" 'chez t)
 (geiser-impl--add-to-alist 'regexp "\\.def$" 'chez t)

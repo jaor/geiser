@@ -5,5 +5,5 @@
           geiser:module-completions
           geiser:no-values
           geiser:newline)
-  (import (scheme small) (chibi modules) (chibi) (meta) (chibi string) (srfi 1) (srfi 95))
+  (import (scheme small) (chibi modules) (chibi) (meta) (chibi ast) (chibi string) (srfi 1) (srfi 95))
   (include "geiser.scm"))

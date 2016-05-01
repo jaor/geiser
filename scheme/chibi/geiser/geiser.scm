@@ -40,8 +40,51 @@
                         (string-contains prefix (write-to-string module))))
                   modules)))))
 
+(define (procedure-arglist id fun)
+  (let ((arglist (lambda-params (procedure-analysis fun))))
+    (if (pair? arglist)
+        (let loop ((arglist arglist)
+                   (optionals? #f)
+                   (required '())
+                   (optional '()))
+          (cond ((null? arglist)
+                 `(,id ("args" (("required" ,@(reverse required))
+                                ("optional" ,@(reverse optional))
+                                ("key")
+                                ("module" ,(let ((mod (containing-module fun))) (if mod (car mod) #f)))))))
+                ((symbol? arglist)
+                 (loop '()
+                       #t
+                       required
+                       (cons "..." (cons arglist optional))))
+                (else
+                 (loop
+                  (cdr arglist)
+                  optionals?
+                  (if optionals? required (cons (car arglist) required))
+                  (if optionals? (cons (car arglist) optional) optional)))))
+        '())))
+
+(define (geiser:operator-arglist id)
+  (let ((binding (eval id)))
+    (cond ((procedure? binding)
+           (if (opcode? binding)
+               '()
+               (procedure-arglist id binding)))
+          (else
+           '()))))
+
 (define (geiser:autodoc ids . rest)
-  '())
+  rest
+  (cond ((null? ids) '())
+        ((not (list? ids))
+         (geiser:autodoc (list ids)))
+        ((not (symbol? (car ids)))
+         (geiser:autodoc (cdr ids)))
+        (else
+         (map (lambda (id)
+                (geiser:operator-arglist id))
+              ids))))
 
 (define (geiser:no-values)
   #f)

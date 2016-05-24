@@ -27,7 +27,7 @@
   :group 'geiser)
 
 (geiser-custom--defcustom geiser-chez-binary
-    "chez-scheme"
+    "scheme"
   "Name to use to call the Chez Scheme executable when starting a REPL."
   :type '(choice string (repeat string))
   :group 'geiser-chez)
@@ -133,4 +133,3 @@ This function uses `geiser-chez-init-file' if it exists."
 (geiser-impl--add-to-alist 'regexp "\\.def$" 'chez t)
 
 (provide 'geiser-chez)
-

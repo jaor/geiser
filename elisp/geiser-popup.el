@@ -15,6 +15,7 @@
 ;;; Support for defining popup buffers and accessors:
 
 (defvar geiser-popup--registry nil)
+(defvar geiser-popup--no-jump nil)
 
 (defvar geiser-popup--overriding-map
   (let ((map (make-sparse-keymap)))
@@ -48,7 +49,8 @@
      (defun ,pop-buff (&optional ,method)
        (let ((,buffer (funcall ',get-buff)))
          (unless (eq ,buffer (current-buffer))
-           (cond ((eq ,method 'buffer) (view-buffer ,buffer))
+           (cond (geiser-popup--no-jump (display-buffer ,buffer))
+                 ((eq ,method 'buffer) (view-buffer ,buffer))
                  ((eq ,method 'frame) (view-buffer-other-frame ,buffer))
                  (t (view-buffer-other-window ,buffer))))))
      (defmacro ,with-macro (&rest body)

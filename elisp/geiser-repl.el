@@ -774,7 +774,7 @@ buffer."
 over a Unix-domain socket."
   (interactive
    (list (geiser-repl--get-impl "Connect to Scheme implementation: ")
-         (read-file-name "Socket file name: ")))
+         (expand-file-name (read-file-name "Socket file name: "))))
   (let ((buffer (current-buffer)))
     (geiser-repl--start-repl impl socket)
     (geiser-repl--maybe-remember-scm-buffer buffer)))

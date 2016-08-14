@@ -96,6 +96,11 @@
 
 ;;; Company activation
 
+(declare-function company-begin-backend "ext:company")
+(declare-function company-cancel "ext:company")
+(declare-function company-mode "ext:company")
+(defvar company-backends)
+(defvar company-active-map)
 (eval-after-load "company"
   '(progn
      (defun geiser-company-backend (command &optional arg &rest ignored)

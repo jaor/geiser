@@ -62,6 +62,7 @@ help (e.g. browse an HTML page) implementing this method.")
 
 (setq geiser-doc--history (geiser-doc--make-history))
 
+(defvar session-globals-exclude)
 (eval-after-load "session"
   '(add-to-list 'session-globals-exclude 'geiser-doc--history))
 

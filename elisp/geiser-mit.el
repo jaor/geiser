@@ -120,10 +120,12 @@ This function uses `geiser-mit-init-file' if it exists."
 (defconst geiser-mit-minimum-version "9.1.1")
 
 (defun geiser-mit--version (binary)
-  (shell-command-to-string
-   (format "%s --quiet --no-init-file --eval %s"
-           (shell-quote-argument binary)
-           "'(begin (display (get-subsystem-version-string \"Release\")) (%exit 0))'")))
+  (car (process-lines binary
+                      "--quiet"
+                      "--no-init-file"
+                      "--eval"
+                      "(begin (display (get-subsystem-version-string \"Release\"))
+                              (%exit 0))")))
 
 (defconst geiser-mit--path-rx "^In \\([^:\n ]+\\):\n")
 (defun geiser-mit--startup (remote)

@@ -97,10 +97,9 @@ This function uses `geiser-chibi-init-file' if it exists."
 (defconst geiser-chibi-minimum-version "0.7.3")
 
 (defun geiser-chibi--version (binary)
-  (second (split-string (shell-command-to-string
-                         (format "%s -V"
-                                 (shell-quote-argument binary)))
-                        " ")))
+  (second (split-string
+           (car (process-lines binary "-V"))
+           " ")))
 
 (defun geiser-chibi--startup (remote)
   (let ((geiser-log-verbose-p t))

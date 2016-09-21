@@ -96,9 +96,7 @@ This function uses `geiser-chez-init-file' if it exists."
 (defconst geiser-chez-minimum-version "9.4")
 
 (defun geiser-chez--version (binary)
-  (shell-command-to-string
-   (format "%s --version"
-           (shell-quote-argument binary))))
+  (car (process-lines binary "--version")))
 
 (defun geiser-chez--startup (remote)
   (let ((geiser-log-verbose-p t))

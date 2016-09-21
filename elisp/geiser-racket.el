@@ -363,10 +363,7 @@ using start-geiser, a procedure in the geiser/server module."
 (defvar geiser-racket-minimum-version "5.3")
 
 (defun geiser-racket--version (binary)
-  (shell-command-to-string
-   (format "%s  -e %s"
-           (shell-quote-argument binary)
-           (shell-quote-argument "(display (version))"))))
+  (car (process-lines binary "-e" "(display (version))")))
 
 (defvar geiser-racket--image-cache-dir nil)
 

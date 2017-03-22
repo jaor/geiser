@@ -44,14 +44,15 @@ Returning to our REPL, the first thing to notice is that the funny
 prompt is telling you your current module: its name is the part just
 after the @@ sign (in Guile, that means @code{guile-user}, while
 Racket's and Chicken's top namespaces don't have a name;
-cf. discussion in @altr{Switching context,,Switching context,).} Other
-than that, this is pretty much equivalent to having a command-line
-interpreter in a terminal, with a bunch of add-ons that we'll be
-reviewing below.  You can start typing sexps right there: Geiser will
-only dispatch them for evaluation when they're complete, and will
-indent new lines properly until then.  It will also keep track of your
-input, maintaining a history file that will be reloaded whenever you
-restart the REPL.
+cf. discussion in
+@altr{Switching context,,Switching context,).}
+Other than that, this is pretty much equivalent to having a
+command-line interpreter in a terminal, with a bunch of add-ons that
+we'll be reviewing below.  You can start typing sexps right there:
+Geiser will only dispatch them for evaluation when they're complete,
+and will indent new lines properly until then.  It will also keep
+track of your input, maintaining a history file that will be reloaded
+whenever you restart the REPL.
 
 @cindex REPL, faces
 @cindex faces, in the REPL

@@ -46,7 +46,7 @@ Indications that everything is working according to plan include the
 'Geiser' minor mode indicator in your mode-line and the appearance of a
 new entry for Geiser in the menu bar.  If, moreover, the mode-line
 indicator is the name of a Scheme implementation, you're indeed in a
-perfect world; otherwise, don't despair and keep on reading: i'll tell
+perfect world; otherwise, don't despair and keep on reading: I'll tell
 you how to fix that in a moment.
 
 @cindex geiser-mode commands
@@ -70,7 +70,7 @@ the tables in @pxref{Cheat sheet, our cheat sheet}.
 Since @i{geiser-mode} is a minor mode, you can toggle it with
 @kbd{M-x geiser-mode}, and control its activation in hooks with the
 functions @code{turn-on-geiser-mode} and @code{turn-off-geiser-mode}.
-If, for some reason i cannot fathom, you prefer @i{geiser-mode} not
+If, for some reason I cannot fathom, you prefer @i{geiser-mode} not
 to be active by default, customizing @code{geiser-mode-auto-p} to
 @code{nil} will do the trick.
 
@@ -92,7 +92,7 @@ how to make sure that that's actually the case.
 @node The source and the REPL, Documentation helpers, Activating Geiser, Between the parens
 @section The source and the REPL
 
-As i've already mentioned a couple of times, @i{geiser-mode} needs a
+As I've already mentioned a couple of times, @i{geiser-mode} needs a
 running REPL to be operative.  Thus, a common usage pattern will be
 for you to first call @code{run-geiser}
 @ifhtml
@@ -321,7 +321,7 @@ Finally, life is much easier when your cursor
 is on a symbol corresponding to a plain variable: you'll see in the echo
 area its name, preceded by the module where it's defined, and followed
 by its value, with an intervening arrow for greater effect.  This time,
-there are no enclosing parentheses (i hope you see the logic in my
+there are no enclosing parentheses (I hope you see the logic in my
 madness).
 
 @cindex autodoc customized
@@ -412,7 +412,7 @@ manual page for the symbol at point with the command
 @cindex philosophy
 @cindex incremental development
 One of Geiser's main goals is to facilitate incremental development.  You
-might have noticed that i've made a big fuss of Geiser's ability to
+might have noticed that I've made a big fuss of Geiser's ability to
 recognize context, by being aware of the namespace where its operations
 happen.
 
@@ -471,7 +471,7 @@ a graphical toolkit), or via an external viewer if you set
 @c{geiser-image-viewer} to the path of an appropriate visualization
 program (see also @ref{Seeing is believing} for more on image support).
 
-At the risk of repeating myself, i'll remind you that all these
+At the risk of repeating myself, I'll remind you that all these
 evaluations will take place in the namespace of the module corresponding
 to the Scheme file from which you're sending your code, which, in
 general, will be different from the REPL's current module.  And, if all
@@ -587,7 +587,7 @@ uses the standard Emacs completion machinery to display them.  That
 means, among other things, that partial completion is available: just
 try to complete @code{d-s} or @code{w-o-t-s} to see why this is a good
 thing.  Partial completion won't work if you have disabled it globally in
-your Emacs configuration: if you don't know what i'm talking about,
+your Emacs configuration: if you don't know what I'm talking about,
 never mind: Geiser's partial completion will work for you out of the
 box.
 

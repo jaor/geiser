@@ -14,7 +14,7 @@
 @cindex supported versions
 @cindex versions supported
 If Geiser came with any guarantees, you'd break all of them by not using
-GNU Emacs @value{EMACS_VERSION} (or better: i regularly use it with a
+GNU Emacs @value{EMACS_VERSION} (or better: I regularly use it with a
 recent Emacs snapshot) and at least one of the supported Schemes,
 namely:
 
@@ -49,10 +49,10 @@ reading.
 
 @cindex quick install
 @cindex ELPA
-Did i mention that the easiest way of installing Geiser is using its
+Did I mention that the easiest way of installing Geiser is using its
 @uref{http://emacswiki.org/emacs/ELPA, ELPA} package?  If you're using
 Emacs 24, @uref{http://emacswiki.org/emacs/ELPA, ELPA} is already there;
-for earlier versions, the page i just linked to twice will tell you
+for earlier versions, the page I just linked to twice will tell you
 where to find the goodies.
 
 ELPA packages live in repositories accessible via HTTP.  You can find
@@ -264,7 +264,7 @@ Completion Mode}, is the package for you.  Like Geiser,
 You can still use the many goodies provided by Neil van Dyke's
 @code{quack-mode}, since most of them are not (yet) available in Geiser.
 The only caveat might be a conflict between Quack's and Geiser's default
-key bindings, which i'm sure you'll manage to tackle just fine.  It's
+key bindings, which I'm sure you'll manage to tackle just fine.  It's
 also probably a good idea to require @code{quack} @i{after} loading
 @file{geiser.el} (or requiring a compiled version).
 @end itemize

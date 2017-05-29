@@ -7,10 +7,10 @@ to make Scheme hacking inside Emacs (even more) fun.
 @cindex derailment
 @cindex corpses
 @cindex philosophy
-Or, to be precise, what @uref{http://hacks-galore.org/jao, i} consider
+Or, to be precise, what @uref{http://hacks-galore.org/jao, I} consider
 fun.  Geiser is thus my humble contribution to the dynamic school of
-expression, and a reaction against what i perceive as a derailment, in
-modern times, of standard Scheme towards the static camp.  Because i
+expression, and a reaction against what I perceive as a derailment, in
+modern times, of standard Scheme towards the static camp.  Because I
 prefer growing and healing to poking at corpses, the continuously
 running Scheme interpreter takes the center of the stage in Geiser.  A
 bundle of Elisp shims orchestrates the dialog between the Scheme

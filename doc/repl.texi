@@ -2,7 +2,7 @@
 @chapter The REPL
 @anchor{quick-start}
 If you've followed the instructions in @ref{Installation}, your Emacs is
-now ready to start playing.  Otherwise, i'll wait for you: when you're
+now ready to start playing.  Otherwise, I'll wait for you: when you're
 ready, just come back here and proceed to the following sections.
 
 @menu
@@ -112,9 +112,9 @@ tunnel.
 @img{repl-menu, right}
 @cindex REPL commands
 A quick way of seeing what else Geiser's REPL can do for you, is to
-display the corresponding entry up there in your menu bar.  No, i don't
+display the corresponding entry up there in your menu bar.  No, I don't
 normally use menus either; but they can come in handy until you've
-memorized Geiser's commands, as a learning device.  And yes, i usually
+memorized Geiser's commands, as a learning device.  And yes, I usually
 run Emacs inside a terminal, but one can always use
 @uref{http://www.emacswiki.org/emacs/LaCarte, La Carte} to access the
 menus in a convenient enough fashion.
@@ -230,7 +230,7 @@ those questions too.
 Actually, if you've been playing with the REPL as you read, you might
 have notice some frantic activity taking place in the echo area every
 now and then.  That was Geiser trying to be helpful (while, hopefully,
-not being clippy), or, more concretely, what i call, for want of a
+not being clippy), or, more concretely, what I call, for want of a
 better name, its @dfn{autodoc} mode.  Whenever it's active (did you
 notice that @i{A} in the mode-line?), Geiser's gerbils will be scanning
 what you type and showing (unless you silence them with @kbd{C-c C-d C-a})

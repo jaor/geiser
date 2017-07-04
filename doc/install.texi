@@ -256,7 +256,7 @@ and automatic completion lists.
 @item @uref{https://github.com/xiaohanyu/ac-geiser/, ac-geiser}
 If you prefer @code{auto-complete-mode} to @code{company-mode}, Xiao
 Hanyu's @code{ac-geiser}, which provides a Geiser plugin for the
-popular @uref{http://cx4a.org/software/auto-complete/, Emacs Auto
+popular @uref{https://www.emacswiki.org/emacs/AutoComplete, Emacs Auto
 Completion Mode}, is the package for you.  Like Geiser,
 @code{ac-geiser} is available in Marmalade and MELPA, and also as an
 @code{el-get} package.

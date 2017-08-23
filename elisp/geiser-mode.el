@@ -175,7 +175,7 @@ With a prefix, revert the effect of `geiser-mode-eval-last-sexp-to-buffer' "
 				geiser-mode-eval-last-sexp-to-buffer))
 	 (str (geiser-eval--retort-result-str ret (when will-eval-to-buffer ""))))
     (cond  ((not will-eval-to-buffer) str)
-	   (err (insert (funcall ret-transformer err t)))
+	   (err (insert (funcall ret-transformer (geiser-eval--error-str err) t)))
 	   ((string= "" str))
 	   (t (push-mark)
               (insert (funcall ret-transformer str nil))))))

@@ -28,6 +28,7 @@ dist_lisp_LISP = \
    geiser-reload.el \
    geiser-repl.el \
    geiser-syntax.el \
+   geiser-tiny.el \
    geiser-xref.el \
    geiser-version.el
 

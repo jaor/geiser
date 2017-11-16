@@ -52,9 +52,28 @@
     (lambda ()
       (write x))))
 
+(define (map f a b)
+  (let ((map2 #f))
+    (let ((tmp-map2
+            (lambda (a b)
+              (if (null? a)
+                  '()
+                   (cons (f (car a) (car b))
+                         (map2 (cdr a) (cdr b)))))))
+    (set! map2 tmp-map2)
+    (map2 a b))))
+
 (define (geiser:completions prefix . rest)
   rest
-  (sort string-ci<?
+  ;; WSG: Fix the string comparison problem
+  ;; (sort string-ci<?
         (filter (lambda (el)
                   (string-prefix? prefix el))
-                (map write-to-string (apply append (oblist))))))
+                (map write-to-string (apply append (oblist)))))
+;; )
+
+(define (geiser:no-values)
+  #f)
+
+(define (geiser:newline)
+  #f))

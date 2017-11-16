@@ -159,8 +159,6 @@
 
 ;;;###autoload
 (add-hook 'scheme-mode-hook 'geiser-mode--maybe-activate)
-;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
 
 
 (provide 'geiser)

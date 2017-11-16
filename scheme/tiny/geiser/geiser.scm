@@ -1,3 +1,5 @@
+;; -*- geiser-scheme-implementation: tiny -*-
+
 (define string-prefix?
   (lambda (x y)
     (let ((n (string-length x)))

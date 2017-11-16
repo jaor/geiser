@@ -52,16 +52,26 @@
     (lambda ()
       (write x))))
 
-(define (map f a b)
-  (let ((map2 #f))
-    (let ((tmp-map2
-            (lambda (a b)
+(define (map f a)
+  (let ((map1 #f))
+    (let ((tmp-map1
+            (lambda (a)
               (if (null? a)
                   '()
-                   (cons (f (car a) (car b))
-                         (map2 (cdr a) (cdr b)))))))
-    (set! map2 tmp-map2)
-    (map2 a b))))
+                   (cons (f (car a))
+                         (map1 (cdr a)))))))
+    (set! map1 tmp-map1)
+    (map1 a))))
+
+(define (geiser:eval module form . rest)
+    rest
+    (let ((output (open-output-string))
+	  (result (if module
+                      (eval form (environment module))
+                      (eval form))))
+      (write `((result ,(write-to-string result))
+               (output ,(get-output-string output))))
+      (newline)))
 
 (define (geiser:completions prefix . rest)
   rest

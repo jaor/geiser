@@ -59,7 +59,7 @@ This function uses `geiser-tiny-init-file' if it exists."
            (module (cond ((string-equal "'()" (car args))
                           "'()")
                          ((and (car args))
-                             (concat "'" (car args)))
+			  (concat "'" (car args)))
                          (t
                           "#f"))))
        (format "(geiser:eval %s '%s)" module form)))
@@ -71,6 +71,7 @@ This function uses `geiser-tiny-init-file' if it exists."
      (let ((form (mapconcat 'identity args " ")))
        (format "(geiser:%s %s)" proc form)))))
 
+;; WSG: No real modules in Tinyscheme...
 (defun geiser-tiny--get-module (&optional module)
   (cond ((null module)
          :f)

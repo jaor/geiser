@@ -68,6 +68,13 @@
   "Start a Geiser Chez REPL, or switch to a running one." t)
 
 ;;;###autoload
+(autoload 'run-tiny "geiser-tiny" "Start a Tinyscheme REPL." t)
+
+;;;###autoload
+(autoload 'switch-to-tiny "geiser-tiny"
+  "Start a Tinyscheme REPL, or switch to a running one." t)
+
+;;;###autoload
 (autoload 'run-guile "geiser-guile" "Start a Geiser Guile REPL." t)
 
 ;;;###autoload
@@ -150,6 +157,7 @@
 	geiser-chez
 	geiser-chibi
 	geiser-mit
+	geiser-tiny
         geiser-implementation
         geiser-xref))
 

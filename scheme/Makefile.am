@@ -25,5 +25,6 @@ nobase_dist_pkgdata_DATA = \
   mit/geiser/load.scm \
   mit/geiser/compile.scm \
   chez/geiser/geiser.ss \
+  tiny/geiser/geiser.scm \
   chibi/geiser/geiser.scm \
   chibi/geiser/geiser.sld

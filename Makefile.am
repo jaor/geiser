@@ -28,6 +28,7 @@ elpa: README.elpa info
 	$(mkdir_p) $(scheme_dir)/chicken/geiser
 	$(mkdir_p) $(scheme_dir)/chibi/geiser
 	$(mkdir_p) $(scheme_dir)/mit/geiser
+	$(mkdir_p) $(scheme_dir)/tiny/geiser
 	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/chez/geiser/* \
                         $(scheme_dir)/chez/geiser
 	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/guile/geiser/* \
@@ -40,6 +41,8 @@ elpa: README.elpa info
                         $(scheme_dir)/chicken/geiser
 	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/mit/geiser/* \
                         $(scheme_dir)/mit/geiser
+	$(INSTALL_DATA) $(abs_top_srcdir)/scheme/tiny/geiser/* \
+                        $(scheme_dir)/tiny/geiser
 
 	$(INSTALL_DATA) $(srcdir)/doc/geiser.info $(elpa_dir)
 	(cd $(elpa_dir) && install-info --dir=dir geiser.info 2>/dev/null)
